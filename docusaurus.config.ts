@@ -5,7 +5,7 @@ import {themes} from "prism-react-renderer"
 const config: Config = {
   title: "IT & Network Automation Tiger Team",
   tagline: "IBM IT & Network Automation Tiger Team",
-  url: "https://github.com/",
+  url: "https://ben-d-ibm.github.io",
   baseUrl: "/waiops-Claro/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
@@ -16,8 +16,8 @@ const config: Config = {
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: "ibm", // Usually your GitHub org/user name.
-  projectName: "waiops-tech-jam", // Usually your repo name.
+  organizationName: "ben-d-ibm", // Usually your GitHub org/user name.
+  projectName: "waiops-Claro", // Usually your repo name.
   deploymentBranch: "gh-pages",
   // Required for search to function correctly
   trailingSlash: true,
