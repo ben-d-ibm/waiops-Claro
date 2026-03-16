@@ -4,39 +4,16 @@ description: Use the File Observer to create topology
 sidebar_position: 3
 ---
 
-Services and applications are increasingly deployed in environments that take
-advantage of distributed and often virtualized infrastructure. For example,
-parts of a network might be cloud-based, with other connected elements contained
-within, or tethered to, legacy systems that exploit tried and tested on-prem
-capability. The result is often a highly distributed and increasingly complex
-hybrid network that requires an agile and dynamic resource management capability
-in order to leverage and exploit its rapidly evolving technologies.
+In the telecommunications industry, services and applications are increasingly deployed across highly distributed environments that combine traditional network infrastructure with virtualized and cloud‑native technologies. Modern Telco networks—spanning RAN, transport, core, OSS/BSS, and cloud platforms—often operate as hybrid, multi‑vendor ecosystems that blend on‑premise systems with cloud‑based components, including VNFs and CNFs running on NFV and Kubernetes infrastructures. This results in a complex and dynamic operational landscape that requires agile, intelligent resource management to fully leverage rapidly evolving network technologies.
+The Resource Management capabilities in IBM Cloud Pak for AIOps provide Telco operations teams with comprehensive, up‑to‑date visibility and control over dynamic network functions, services, and underlying infrastructure. They enable NOC, SOC, NetOps, and ITOps teams to query any network resource—whether a physical device, a virtual function, or a cloud-native service—and visualize a configurable topology showing its ecosystem of dependencies, relationships, and state. This topology can be explored in real time or within a historical time window to support troubleshooting and analysis.
+By dynamically or on‑demand visualizing complex telecom network topologies, and by enabling deeper investigation of incidents and events, operational efficiency is significantly improved. Problems are detected and resolved faster, false alarms are reduced, and automation and collaboration across operational teams are enhanced—especially important in hybrid 4G/5G environments.
+Topology awareness adds tremendous value to Telco operations because it provides end‑to‑end visibility across the entire service delivery chain. With this topology information, it becomes possible to:
 
-The **Resource Management** capabilities in the Cloud Pak for AIOps provide
-operations teams with complete up-to-date visibility and control over dynamic
-infrastructure and services. They let ITOps teams query a specific networked
-resource, and then presents a configurable topology view with its ecosystem of
-relationships and states, both in real time and within a definable time window.
+Visualize an end‑to‑end view of the Telco environment—from RAN sites to the 5G Core and service layers.
+Create and monitor logical groups of network resources related to a specific service (such as a 5G slice, IPTV service group, or CNF cluster).
+Perform topology‑based event correlation across related network elements, reducing noise and highlighting root causes across domains.
 
-By visualizing complex network topologies in real-time, updated dynamically or
-on-demand, and allowing further investigation of events and incidents,
-operational efficiency is improved, problems are detected and solved faster,
-false alarms are reduced, and automation and collaboration between operational
-teams is enhanced.
-
-Topology information adds enormous value to your IT Operations as it provides
-visibility into the environment and brings it to-life. With topology information
-its possible to:
-
-- Visualize a seamless end-to-end view of the environment
-- Create and view groups of resources that logically belong together
-- Perform topology-based event correlation for events occurring within a group
-  of related resources
-
-The Cloud Pak for AIOps can ingest topology data from many different sources.
-The multiple disparate pieces of topology can then be stitched together, where
-it makes sense to do so, allowing to see the end-to-end environment with all the
-logical and physical connections represented.
+Cloud Pak for AIOps can ingest topology data from multiple Telco‑specific sources, including NFV orchestrators, SDN controllers, Kubernetes platforms, EMS/NMS systems, OSS sources, and monitoring probes. These disparate topology components are then automatically stitched together where appropriate, enabling a unified end‑to‑end view that represents all logical and physical connections within the Telco environment.
 
 ![](images/end-to-end-topology.png)
 
@@ -154,23 +131,29 @@ this new folder. Run the following command from the **Terminal** window:
 cd; mkdir lab-topology; cd lab-topology
 ```
 
-Create a file called **infrastructure.txt** by running the following command in
+Create a file called **topology.txt** by running the following command in
 the **Terminal** window to open the text editor , copy the infrastructure
 topology data listed below (use the copy helper icon (top-right) for one-click
 copy), paste it into the text editor, click on the **Save** button in the text
 editor and close the editor window (click on the X).
 
 ```
-gedit infrastructure.txt
+gedit topology.txt
 ```
 
 ```sh
-V:{"_operation":"InsertReplace","uniqueId":"379177a8-0a6a-4068-817c-d6d6e870437e","matchTokens":["379177a8-0a6a-4068-817c-d6d6e870437e","router1"],"tags":["WAIOpsDemo"],"name":"router1","entityTypes":["router"],"_references":[{"_toUniqueId":"7598a194-27a0-4d0b-9c49-cbc0070c99c9","_edgeType":"uses"}]}
-V:{"_operation":"InsertReplace","uniqueId":"9c1f90e0-7dc4-40d8-8721-40ea2f3af453","matchTokens":["9c1f90e0-7dc4-40d8-8721-40ea2f3af453","Intel"],"tags":["WAIOpsDemo"],"name":"Intel","entityTypes":["cpu"],"_references":[]}
-V:{"_operation":"InsertReplace","uniqueId":"222-9c1f90e0-7dc4-40d8-8721-40ea2f3af453","matchTokens":["222-9c1f90e0-7dc4-40d8-8721-40ea2f3af453","AMD"],"tags":["WAIOpsDemo"],"name":"AMD","entityTypes":["cpu"],"_references":[]}
-V:{"_operation":"InsertReplace","uniqueId":"7598a194-27a0-4d0b-9c49-cbc0070c99c9","matchTokens":["7598a194-27a0-4d0b-9c49-cbc0070c99c9","greatFireWallOfSecurity"],"tags":["WAIOpsDemo"],"name":"greatFireWallOfSecurity","entityTypes":["firewall"],"_references":[]}
-V:{"_operation":"InsertReplace","uniqueId":"974d1788-1312-4151-8a62-73fa1854e807","matchTokens":["974d1788-1312-4151-8a62-73fa1854e807","computer1000"],"tags":["WAIOpsDemo"],"name":"computer1000","entityTypes":["computer"],"_references":[{"_toUniqueId":"379177a8-0a6a-4068-817c-d6d6e870437e","_edgeType":"connectedTo"},{"_toUniqueId":"9c1f90e0-7dc4-40d8-8721-40ea2f3af453","_edgeType":"contains"},{"_toUniqueId":"222-9c1f90e0-7dc4-40d8-8721-40ea2f3af453","_edgeType":"contains"}]}
-V:{"_operation":"InsertReplace","uniqueId":"5c6f968a-2006-4b43-96b5-dd53df6b0afb","matchTokens":["5c6f968a-2006-4b43-96b5-dd53df6b0afb","steve"],"tags":["WAIOpsDemo"],"name":"steve","entityTypes":["person"],"_references":[{"_toUniqueId":"974d1788-1312-4151-8a62-73fa1854e807","_edgeType":"uses"}]}
+V:{"_operation":"InsertUpdate","tags":["Optical Network","app:telco","demo:telco-demo-ar-py"],"appgroup":"telco","city":"Buenos Aires","area":"Retiro","geolocation":{"geometry":{"coordinates":[-58.3702,-34.5924],"type":"Point"}},"uniqueId":"BUEA01","fromFile":"true","entityTypes":["device"],"name":"buea01","_references":[],"Equipment":"3HE00104AA","EquipmentName":"7750 SR-12 CHASSIS","Floor":"01","Frame":"2506","Location":"BUE-RT01","Manufacturer":"Alcatel Inc.","ShelfID":"7750-01","TerminalID":"BUEA01","matchTokens":["entityid.111100","buea01"]}
+V:{"_operation":"InsertUpdate","tags":["Optical Network","app:telco","demo:telco-demo-ar-py"],"appgroup":"telco","city":"Asuncion","area":"Villa Morra","geolocation":{"geometry":{"coordinates":[-57.5759,-25.2960],"type":"Point"}},"uniqueId":"ASUA01","fromFile":"true","entityTypes":["device"],"name":"asua01","_references":[],"Equipment":"3HE07112AA","EquipmentName":"7950 XRS-20 SHELF","Floor":"01","Frame":"1905","Location":"ASU-VM01","Manufacturer":"Alcatel Inc.","ShelfID":"7950-01","TerminalID":"ASUA01","matchTokens":["entityid.111101","asua01"]}
+V:{"_operation":"InsertUpdate","appgroup":"telco","city":"Buenos Aires","area":"Retiro","geolocation":{"geometry":{"coordinates":[-58.3702,-34.5924],"type":"Point"}},"uniqueId":"BUEA01[ Port 10/1/1 ]","fromFile":"true","entityTypes":["port"],"name":"buea01[ port 10/1/1 ]","_references":[{"_edgeType":"connectedTo","_toUniqueId":"BUEOP01"},{"_edgeType":"contains","_fromUniqueId":"BUEA01"},{"_edgeType":"partOf","_toUniqueId":"BUEA01"}],"Port":"10/1/1","circuit_vision":"BUEAB01/ASUAB01/GE10/1/4","customer_Name":"CLIENTE CORPORATIVO REGIONAL","connected_by":"transport","connection_path":"['BUEA01','BUEOP01','CBAPOD01','FORPOD02','ASUOP01','ASUA01']","tags":["Optical Network","app:telco","demo:telco-demo-ar-py","BUEAB01/ASUAB01/GE10/1/4","CLIENTE CORPORATIVO REGIONAL","transport"],"matchTokens":["entityid.111102","buea011"]}
+V:{"_operation":"InsertUpdate","appgroup":"telco","city":"Buenos Aires","area":"Retiro","geolocation":{"geometry":{"coordinates":[-58.3702,-34.5924],"type":"Point"}},"uniqueId":"BUEA01[ Port 10/2/2 ]","fromFile":"true","entityTypes":["port"],"name":"buea01[ port 10/2/2 ]","_references":[{"_edgeType":"connectedTo","_toUniqueId":"BUEOP01"},{"_edgeType":"contains","_fromUniqueId":"BUEA01"},{"_edgeType":"partOf","_toUniqueId":"BUEA01"}],"Port":"10/2/2","circuit_vision":"BUEAB01/ASUAB01/GE10/CA:RE-01/1","customer_Name":"CLIENTE CORPORATIVO REGIONAL","connected_by":"transport","connection_path":"['BUEA01','BUEOP01','ASUOP01','ASUA01']","tags":["Optical Network","app:telco","demo:telco-demo-ar-py","BUEAB01/ASUAB01/GE10/CA:RE-01/1","CLIENTE CORPORATIVO REGIONAL","transport"],"matchTokens":["entityid.111103","buea012"]}
+V:{"_operation":"InsertUpdate","appgroup":"telco","city":"Buenos Aires","area":"Retiro","geolocation":{"geometry":{"coordinates":[-58.3702,-34.5924],"type":"Point"}},"uniqueId":"BUEA01[ Port 10/2/1 ]","fromFile":"true","entityTypes":["port"],"name":"buea01[ port 10/2/1 ]","_references":[{"_edgeType":"connectedTo","_toUniqueId":"BUEOP01"},{"_edgeType":"contains","_fromUniqueId":"BUEA01"},{"_edgeType":"partOf","_toUniqueId":"BUEA01"}],"Port":"10/2/1","circuit_vision":"BUEAB01/ASUAB01/GE10/4/2","customer_Name":"CLIENTE CORPORATIVO REGIONAL","connected_by":"transport","connection_path":"['BUEA01','BUEOP01','ASUOP01','ASUA01']","tags":["Optical Network","app:telco","demo:telco-demo-ar-py","BUEAB01/ASUAB01/GE10/4/2","CLIENTE CORPORATIVO REGIONAL","transport"],"matchTokens":["entityid.111104","buea013"]}
+V:{"_operation":"InsertUpdate","appgroup":"telco","city":"Asuncion","area":"Villa Morra","geolocation":{"geometry":{"coordinates":[-57.5759,-25.2960],"type":"Point"}},"uniqueId":"ASUA01[ Port 1/1/22 ]","fromFile":"true","entityTypes":["port"],"name":"asua01[ port 1/1/22 ]","_references":[{"_edgeType":"connectedTo","_toUniqueId":"ASUOP01"},{"_edgeType":"contains","_fromUniqueId":"ASUA01"},{"_edgeType":"partOf","_toUniqueId":"ASUA01"}],"Port":"1/1/22","circuit_vision":"BUEAB01/ASUAB01/GE10/1/4","customer_Name":"CLIENTE CORPORATIVO REGIONAL","connected_by":"transport","connection_path":"['BUEA01','BUEOP01','CBAPOD01','FORPOD02','ASUOP01','ASUA01']","tags":["Optical Network","app:telco","demo:telco-demo-ar-py","BUEAB01/ASUAB01/GE10/1/4","CLIENTE CORPORATIVO REGIONAL","transport"],"matchTokens":["entityid.111105","asua011"]}
+V:{"_operation":"InsertUpdate","appgroup":"telco","city":"Asuncion","area":"Villa Morra","geolocation":{"geometry":{"coordinates":[-57.5759,-25.2960],"type":"Point"}},"uniqueId":"ASUA01[ Port 8/1/22 ]","fromFile":"true","entityTypes":["port"],"name":"asua01[ port 8/1/22 ]","_references":[{"_edgeType":"connectedTo","_toUniqueId":"ASUOP01"},{"_edgeType":"contains","_fromUniqueId":"ASUA01"},{"_edgeType":"partOf","_toUniqueId":"ASUA01"}],"Port":"8/1/22","circuit_vision":"BUEAB01/ASUAB01/GE10/CA:RE-01/1","customer_Name":"CLIENTE CORPORATIVO REGIONAL","connected_by":"transport","connection_path":"['BUEA01','BUEOP01','ASUOP01','ASUA01']","tags":["Optical Network","app:telco","demo:telco-demo-ar-py","BUEAB01/ASUAB01/GE10/CA:RE-01/1","CLIENTE CORPORATIVO REGIONAL","transport"],"matchTokens":["entityid.111106","asua012"]}
+V:{"_operation":"InsertUpdate","appgroup":"telco","city":"Asuncion","area":"Villa Morra","geolocation":{"geometry":{"coordinates":[-57.5759,-25.2960],"type":"Point"}},"uniqueId":"ASUA01[ Port 2/1/22 ]","fromFile":"true","entityTypes":["port"],"name":"asua01[ port 2/1/22 ]","_references":[{"_edgeType":"connectedTo","_toUniqueId":"ASUOP01"},{"_edgeType":"contains","_fromUniqueId":"ASUA01"},{"_edgeType":"partOf","_toUniqueId":"ASUA01"}],"Port":"2/1/22","circuit_vision":"BUEAB01/ASUAB01/GE10/4/2","customer_Name":"CLIENTE CORPORATIVO REGIONAL","connected_by":"transport","connection_path":"['BUEA01','BUEOP01','ASUOP01','ASUA01']","tags":["Optical Network","app:telco","demo:telco-demo-ar-py","BUEAB01/ASUAB01/GE10/4/2","CLIENTE CORPORATIVO REGIONAL","transport"],"matchTokens":["entityid.111107","asua013"]}
+V:{"_operation":"InsertUpdate","tags":["Optical Network","app:telco","demo:telco-demo-ar-py"],"appgroup":"telco","city":"Buenos Aires","area":"Retiro","geolocation":{"geometry":{"coordinates":[-58.3702,-34.5924],"type":"Point"}},"uniqueId":"BUEOP01","fromFile":"true","entityTypes":["device"],"name":"bueop01","_references":[{"_edgeType":"connectedTo","_toUniqueId":"ASUOP01"}],"Equipment":"FC9565US30","EquipmentName":"FW9500 HDS SH","Floor":"01","Frame":"1404","Location":"BUE-RT01","Manufacturer":"Fujitsu","ShelfID":"27345-3","TerminalID":"BUEOP01","matchTokens":["entityid.111108","bueop01"]}
+V:{"_operation":"InsertUpdate","tags":["Optical Network","app:telco","demo:telco-demo-ar-py"],"appgroup":"telco","city":"Asuncion","area":"Villa Morra","geolocation":{"geometry":{"coordinates":[-57.5759,-25.2960],"type":"Point"}},"uniqueId":"ASUOP01","fromFile":"true","entityTypes":["device"],"name":"asuop01","_references":[],"Equipment":"FC9565US30","EquipmentName":"FW9500 HDS SH","Floor":"01","Frame":"109.07","Location":"ASU-VM01","Manufacturer":"Fujitsu","ShelfID":"27344-3","TerminalID":"ASUOP01","matchTokens":["entityid.111109","asuop01"]}
+V:{"_operation":"InsertUpdate","tags":["Optical Network","app:telco","demo:telco-demo-ar-py"],"appgroup":"telco","city":"Cordoba","area":"Nueva Cordoba","geolocation":{"geometry":{"coordinates":[-64.1888,-31.4201],"type":"Point"}},"uniqueId":"CBAPOD01","fromFile":"true","entityTypes":["fiberConnection"],"name":"cbapod01","_references":[{"_edgeType":"connectedTo","_toUniqueId":"FORPOD02"}],"Equipment":"FC9565US30","EquipmentName":"FW9500 HDS SH","Floor":"01","Frame":"2102","Location":"CBA-NC01","Manufacturer":"Fujitsu","ShelfID":"27346-3","TerminalID":"CBAPOD01","matchTokens":["entityid.211108","cbapod01"]}
+V:{"_operation":"InsertUpdate","tags":["Optical Network","app:telco","demo:telco-demo-ar-py"],"appgroup":"telco","city":"Formosa","area":"Centro","geolocation":{"geometry":{"coordinates":[-58.1775,-26.1849],"type":"Point"}},"uniqueId":"FORPOD02","fromFile":"true","entityTypes":["fiberConnection"],"name":"forpod02","_references":[{"_edgeType":"connectedTo","_toUniqueId":"ASUOP01"}],"Equipment":"FC9565US30","EquipmentName":"FW9500 HDS SH","Floor":"01","Frame":"1108","Location":"FOR-CT01","Manufacturer":"Fujitsu","ShelfID":"27347-3","TerminalID":"FORPOD02","matchTokens":["entityid.211109","forpod02"]}
 ```
 
 Repeat the process and create a second file called **application.txt** by
@@ -178,19 +161,19 @@ running the following command and use the application topology data listed
 below:
 
 ```
-gedit application.txt
+gedit service.txt
 ```
 
 ```sh
-V:{"_operation":"InsertReplace","uniqueId":"111-379177a8-0a6a-4068-817c-d6d6e870437e","matchTokens":["111-379177a8-0a6a-4068-817c-d6d6e870437e","billing"],"tags":["WAIOpsDemo"],"name":"billing","entityTypes":["application"],"_references":[{"_toUniqueId":"111-974d1788-1312-4151-8a62-73fa1854e807","_edgeType":"runsOn"}]}
-V:{"_operation":"InsertReplace","uniqueId":"111-9c1f90e0-7dc4-40d8-8721-40ea2f3af453","matchTokens":["111-9c1f90e0-7dc4-40d8-8721-40ea2f3af453","webserver"],"tags":["WAIOpsDemo"],"name":"webserver","entityTypes":["application"],"_references":[{"_toUniqueId":"111-974d1788-1312-4151-8a62-73fa1854e807","_edgeType":"runsOn"}]}
-V:{"_operation":"InsertReplace","uniqueId":"111-974d1788-1312-4151-8a62-73fa1854e807","matchTokens":["111-974d1788-1312-4151-8a62-73fa1854e807","computer1000"],"tags":["WAIOpsDemo"],"name":"computer1000","entityTypes":["computer"],"_references":[]}
+V:{"_operation":"InsertUpdate","uniqueId":"SVC-CLIENTE-REGIONAL","name":"cliente-corporativo-regional","entityTypes":["service"],"tags":["Optical Network","app:telco","demo:telco-demo-ar-py","service"],"_references":[{"_edgeType":"runsOn","_toUniqueId":"BUEA01"},{"_edgeType":"runsOn","_toUniqueId":"ASUA01"}]}
+V:{"_operation":"InsertUpdate","uniqueId":"SVC-BUEA01","name":"buea01","entityTypes":["device"],"tags":["service-layer"],"_references":[]}
+V:{"_operation":"InsertUpdate","uniqueId":"SVC-ASUA01","name":"asua01","entityTypes":["device"],"tags":["service-layer"],"_references":[]}
 ```
 
 Confirm that you have two files created with data by running the command below:
 
 ```
-ls -l infrastructure.txt application.txt
+ls -l topology.txt service.txt
 ```
 
 #### File Observer Format Overview
@@ -248,8 +231,8 @@ Log into the Cloud Pak for AIOps:
   search for **File**, click on the **File** tile and click **Get started**
 
 In the **New observer job: File** form, fill the Unique ID field as
-"infrastructure". Keep the **File Mode** as **Upload local file**, upload the
-**infrastructure.txt** file that you created in the previous step and click the
+"topology". Keep the **File Mode** as **Upload local file**, upload the
+**topology.txt** file that you created in the previous step and click the
 **Save** button. 
 
 :::warning
@@ -263,7 +246,7 @@ click **Save**.
 
 Now click on the **Add a new job** button, from the pop-up choose the **File**
 observer and repeat the process by creating a second File Observer job with the
-Unique ID as "application" and this time load the **application.txt** file.
+Unique ID as "service" and this time load the **service.txt** file.
 
 Each job will run the moment it is saved. After you have done this, your
 Observer jobs screen should look like the one below. You can verify that your
@@ -280,20 +263,16 @@ nine resources listed:
 
 :::note
 
-There are two resources in the list called "computer1000". One is from the
-topology segment ingested from the infrastructure.txt file and the other one is
-from the topology segment ingested from the application.txt file. We will be
+There are two resources in the list called "asua01" and two resources called "buea01". One is from the
+topology segment ingested from the topology.txt file and the other one is
+from the topology segment ingested from the service.txt file. We will be
 merging these two Resources together in the next chapter, via a Merge Rule.
 
 :::
 
-Click on **router1** and it will open the topology view.
+Click on **buea01 [ port 10/1/1 ]** and it will open the topology view.
 
-Increase the number of hops to 2 by clicking on the hops drop down list and
+Increase the number of hops to 4 by clicking on the hops drop down list and
 select **Render**, you should see six resources as shown below:
 
 ![](images/hops.png)
-
-You can click Back on your browser window and click on one of the other
-Resources ingested via the **application** job (e.g. billing). You will see a
-representation of the topology segment created by ingesting that file.
