@@ -56,21 +56,21 @@ maintaining detailed historical records of changes to these properties.
 You are now ready to create a Merge Rule to tie the two topology resources that
 we loaded in the previous chapter.
 
-This is where the topology data coming from the **application** topology source
-is mapped onto the topology data coming from the **infrastructure** topology
-source. In our hypothetical scenario, we know we have Resources of type
-"computer" in both sets of topology, and we know that they relate to the same
+This is where the topology data coming from the **service** topology source
+is mapped onto the topology data coming from the **topology** source. 
+In our hypothetical scenario, we know we have Resources of type
+"device" in both sets of topology, and we know that they relate to the same
 servers. Corresponding instances across the two data sets are also labelled
 consistently and correctly, meaning that identifying the same Resource across
 the two data sets is possible.
 
-In our case, we have a Resource called "computer1000" represented in our
-infrastructure topology data as well as in our application data. Our goal is to
+In our case, we have a Resource called "asua01" and "buea01" represented in our
+infrastructure topology data as well as in our service data. Our goal is to
 merge the two sets of topology together so that we can both visualize what
 applications are running on our servers, and more importantly, correlate
 infrastructure alerts with application alerts, something that is not possible
 otherwise. Note that the rule is created in a generic way so that if there were
-any other computers included in our two data sets, they too would be merged
+any other devices included in our two data sets, they too would be merged
 together automatically, so long as they met the criteria set out in the rule.
 
 From the burger menu in the top-left, navigate to: **Operate → Resource
@@ -93,7 +93,7 @@ Select **Merge rule** from the rule type list and select **Start**.
 Follow these steps to create your new Merge Rule:
 
 - **Rule name:** Give your rule a name, for example
-  **InfrastructureApplications**
+  **TopologyService**
 - Set **Status** to **Enabled**
 - **Tokens**: The tokens refer to the parameters in your Resources that will be
   compared. In our case, the parameter that stores the computer name is called
@@ -110,13 +110,13 @@ Follow these steps to create your new Merge Rule:
     topology data coming from **all** Observer types.
 
   - **Providers**: Add both of your jobs to the list (e.g.
-    **FILE.OBSERVER:infrastructure.txt** and **FILE.OBSERVER:application.txt**)
+    **FILE.OBSERVER:topology.txt** and **FILE.OBSERVER:service.txt**)
     This specifies that this rule should only apply to these particular jobs. If
     this section was left empty, it would try to apply this rule to topology
     data coming from **all** File jobs defined.
 
   - **Resource types**: Add the Resource type that this rule should apply to
-    which is **computer**. If this section was left empty, it would try to apply
+    which is **device**. If this section was left empty, it would try to apply
     this rule to **all** Resource types in the Observers list and Providers list
     above.
 
@@ -169,9 +169,8 @@ the burger menu in the top-left, navigate to: **Operate → Resource management*
 
 In the **Resource management** page, click on the **Resources** tab and this
 time search for **asua01**. Now you will see just one instance in the list
-of Resources called computer1000 whereas before you would have seen two. Click
-on **asua01**, change the hop view to **2** and click **Render**. You
-should see something like the following, showing the combined topology segments:
+of Resources called asua01 and one called buea01 whereas before you would have seen two.
+You will also how many resources were merged see on the bottom.
 
 ![](images/computer.png)
 
