@@ -25,9 +25,7 @@ additional information can be found in the product
 
 Business Criticality plays a major factor in making sure that Policies reflect
 business priorities in terms of what applications affect business operations the
-most. Policies can be defined in a way that considers the Business criticality
-as a factor to take an action such as promoting Alerts to an Incident that IT
-Ops. personnel can see in the Incident View.
+most. Policies can be defined in a way that considers Business criticality as a factor to trigger actions such as promoting alerts to incidents that Network Operations Center (NOC) personnel can see in the Incident View. This allows operators to prioritize issues that impact critical telecom services.
 
 ### Defining Business Criticality
 
@@ -50,7 +48,7 @@ The Business criticality page is displayed listing any existing criticality
 definitions in a table format by name, description, and criticality value, in
 sortable columns. For the purpose of the Lab, we will use the predefined
 criticality values but note that you can custom define these values to better
-represent your specific IT environment.
+represent your specific Telco environment.
 
 Click on **Start with presets**, inspect the preset values and click on **Add**.
 
@@ -71,26 +69,16 @@ _Service_ represents a group of interconnected components such as routers,
 switches, firewalls, etc. that participate in the operation of voice and data
 communications. In mostly every other industry, an _Application_ represents a
 set of IT resources that performs a specific function directly for an end user
-or, in some cases, for another Application. In this Lab, we are using the term
-_Application_.
+or, in some cases, for another Application. In this Lab, we will use the term **Service**, as this aligns better with telecommunications environments where services represent connectivity delivered across multiple network components.
 
-In summary, an Application, in the context of the Cloud Pak for AIOps, is a
-collection of topology resource groups that represent a complete IT solution
-stack. Applications, when combined with resource-level event correlation and
-grouping mechanisms, provide roll-up incident visibility. In other words, Alerts
-impacting resources will also surface as impacting the Applications that those
-resources belong to. This improves overall visibility and allows the
-prioritization of incident resolution based on the business criticality that has
-been preassigned to the impacted applications.
 
-### Defining Applications
+### Defining Applications/Services
 
-You define and edit applications by adding (or removing) resource groups, icons
+You define and edit applications/services by adding (or removing) resource groups, icons
 and tags, assigning business criticality levels, and setting service disruption
 costs.
 
-Lets define a fictional application based on the existing topology resource
-groups:
+Lets define a fictional network service based on the existing topology resource groups:
 
 - From the burger menu in the top-left, navigate to: **Operate → Resource
   management**.
@@ -98,21 +86,21 @@ groups:
   in the top-right.
 - In the **Define application** page, we will select a subset of the resource
   groups defined in previous chapters using Topology Group Templates. These are
-  the resource groups that belong to our fictional application. Lets select
-  APPSERVER-computer1000, APPSERVER-computer1001 and ROUTER-router1 as shown
+  the resource groups that belong to our fictional service. Lets select
+  Buenos Aires, Asunción and Córdoba as shown
   below:
 
 ![](images/select-resource-groups.png)
 
-- Click **Next** to preview the application.
+- Click **Next** to preview the application/service.
 
-As we preview the application, we can use the checkbox to deselect resource
-groups on the right sidebar in order to visualize the application without those
+As we preview the application/service, we can use the checkbox to deselect resource
+groups on the right sidebar in order to visualize the application/service without those
 groups.
 
-- In this preview step, we realize that we don't need the ROUTER-router1
-  resource group, so click on the (-) minus sign to remove the ROUTER-router1
-  resource group from this application.
+- In this preview step, we realize that we don't need the Córdoba
+  resource group, so click on the (-) minus sign to remove the Córdoba
+  resource group from this application/service.
 
 ![](images/topology-preview.png)
 
@@ -121,14 +109,13 @@ groups.
 ![](images/topology-final.png)
 
 - Click **Next** to add additional details.
-- Enter a **Name** for the application, for example **Order Capture Backend**
-- Set an **Icon** for the application, using the drop-down list select the
-  **backend** icon. This icon is used to identify the application resource type
-  in the topology view of your applications.
-- Mark the application as a **favorite** by clicking on the heart icon.
-- In the **Add tags** field, type **orderBackend** and select **Create new
-  tag**. Tags can be used to identify similar applications and to distinguish
-  applications from other applications.
+- Enter a **Name** for the service, for example **Buenos Aires - Asunción**
+- Set an **Icon** for the application/service, using the drop-down list. This icon is used to identify the service resource type
+  in the topology view of your services.
+- Mark the service as a **favorite** by clicking on the heart icon.
+- In the **Add tags** field, type **BuenosAiresAsunción** and select **Create new
+  tag**. Tags can be used to identify similar services and to distinguish
+  services from other services.
 - In the **Business criticality** field, select **Tier 1**.
 
 You should see the application details as shown below:
@@ -156,7 +143,7 @@ loader script.
 ### Creating a Webhook Connection
 
 The webhook connection allows the Cloud Pak for AIOps to expose an API that can
-be used to load IT Ops events created by observability tools such as Datadog,
+be used to load Ops events created by observability tools such as Datadog,
 Zabbix and others:
 
 - from the burger menu in the top-left navigate to: **Define → Integrations**
@@ -274,9 +261,7 @@ Click on the **Save** button in the text editor and **close** the editor window
 
 ### Validating Topological Correlation
 
-We will now load a set of sample events. Because these events impact resources
-we have in one of our topology group (billing, computer1000 and webserver) these
-events will be correlated.
+We will now load a set of sample events. Because these events impact network elements that participate in the Buenos Aires – Asunción transport service (such as the BUEA01 and ASUA01 routers and the optical transport nodes), Cloud Pak for AIOps will correlate these alerts using topology relationships.
 
 Create a new file called _topology-events.json_ by running the following command
 in the **Terminal** window to open the text editor, **copy** the event data
@@ -288,9 +273,9 @@ gedit topology-events.json
 ```
 
 ```
-{ "sender":{ "service":"Zabbix Middleware Monitoring", "name":"US-SOUTH CEA SelfMonitoring @AGG_P", "type":"Zabbix" }, "resource":{ "application":"eCom2 web server", "name":"computer1000", "hostname":"computer1000.company.com", "type":"host", "ipaddress":"10.1.96.24", "location":"US-SOUTH" }, "type":{ "classification":"System status", "eventType":"problem" }, "severity":3, "summary":"CPU at 80% utilization", "occurrenceTime":"2023-05-05T14:40:38.000Z", "expirySeconds":0 }
-{ "sender":{ "service":"Zabbix Middleware Monitoring", "name":"US-SOUTH CEA SelfMonitoring @AGG_P", "type":"Zabbix" }, "resource":{ "application":"eCom2 api layer", "name":"billing", "hostname":"", "type":"device", "ipaddress":"10.1.96.28", "location":"US-SOUTH" }, "type":{ "classification":"System status", "eventType":"problem" }, "severity":5, "summary":"Unscheduled device restart. Review log files", "occurrenceTime":"2023-05-05T14:45:20.000Z", "expirySeconds":0 }
-{ "sender":{ "service":"Zabbix Middleware Monitoring", "name":"US-SOUTH CEA SelfMonitoring @AGG_P", "type":"Zabbix" }, "resource":{ "application":"eCom2 security layer", "name":"webserver", "hostname":"", "type":"device", "ipaddress":"10.1.96.29", "location":"US-SOUTH" }, "type":{ "classification":"System status", "eventType":"problem" }, "severity":6, "summary":"Unable to load firewall rules after reboot", "occurrenceTime":"2023-05-05T14:46:10.000Z", "expirySeconds":0 }
+{"sender":{"service":"Network Monitoring","name":"BUE NOC Monitoring","type":"Zabbix"},"resource":{"application":"Buenos Aires","name":"buea01","hostname":"buea01.telco.net","type":"router","ipaddress":"10.10.1.1","location":"Buenos Aires"},"type":{"classification":"Network status","eventType":"problem"},"severity":4,"summary":"High interface utilization detected on port 10/1/1","occurrenceTime":"2023-05-05T14:40:38.000Z","expirySeconds":0}
+{"sender":{"service":"Network Monitoring","name":"ASU NOC Monitoring","type":"Zabbix"},"resource":{"application":"Asunción","name":"asua01","hostname":"asua01.telco.net","type":"router","ipaddress":"10.10.2.1","location":"Asuncion"},"type":{"classification":"Network status","eventType":"problem"},"severity":5,"summary":"BGP session reset detected on upstream interface","occurrenceTime":"2023-05-05T14:45:20.000Z","expirySeconds":0}
+{"sender":{"service":"Optical Network Monitoring","name":"Transport Monitoring","type":"Telemetry"},"resource":{"application":"Buenos Aires","name":"bueop01","hostname":"bueop01.telco.net","type":"optical-node","ipaddress":"10.10.3.1","location":"Buenos Aires"},"type":{"classification":"Network status","eventType":"problem"},"severity":6,"summary":"Optical signal degradation detected on transport link toward ASUOP01","occurrenceTime":"2023-05-05T14:46:10.000Z","expirySeconds":0}
 ```
 
 Now lets submit the events via the _webhook event loader script_ created in the
@@ -300,7 +285,7 @@ previous section by running the following command from the **Terminal** window:
 bash event-load-webhook.sh topology-events.json
 ```
 
-First, lets see how the Application we have defined shows these events:
+First, lets see how the Application/Service we have defined shows these events:
 
 - From the burger menu in the top-left navigate to: **Operate → Resource
   Management** and click on the **Applications** tab
@@ -310,7 +295,7 @@ Note that the events impacting the resources, have rolled-up into the impacted
 
 ![](images/app-impacted.png)
 
-Click on the Application name (**Order Capture Backend**) to see the topology
+Click on the Service name (**Buenos Aires - Asuncion Transport Service**) to see the topology
 resources impacted
 
 ![](images/topo-impacted.png)
