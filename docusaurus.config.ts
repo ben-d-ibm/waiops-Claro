@@ -6,7 +6,7 @@ const config: Config = {
   title: "IT & Network Automation Tiger Team",
   tagline: "IBM IT & Network Automation Tiger Team",
   url: "https://github.com/",
-  baseUrl: "/waiops-tech-jam/",
+  baseUrl: "/waiops-Claro/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.svg",
