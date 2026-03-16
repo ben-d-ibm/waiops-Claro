@@ -276,3 +276,38 @@ Increase the number of hops to 4 by clicking on the hops drop down list and
 select **Render**, you should see six resources as shown below:
 
 ![](images/hops.png)
+
+###Adding Map Localization
+
+It is possible to add a map to render the topology with geo localization data.
+
+From the burger menu in the top-left, navigate to: **Operate → Resource
+management**. In the **Resource management** page, click on the **Settings**
+gear icon in the top-right as shown below:
+
+![](images/gear-icon.png)
+
+Select **Topology configuration**. From the **Topology configuration** page, in
+the **Advanced Settings** card shown below select **Resource Map**.
+
+Then in ***map the server URL template*** insert:
+
+´´´sh
+https://tile.openstreetmap.org/t{z}/{x}//{y}.png
+´´´
+
+And then in ***map tile server attribution***:
+
+´´´sh
+OpenStreetMap Contributors
+´´´
+
+![](images/map.png)
+
+Then you can go to Resource Management and click on ***View on map*** of any resource.
+
+![](images/viewOnMap.png)
+
+You should then see the resource geo located in the map.
+
+![](images/geolocated.png)
