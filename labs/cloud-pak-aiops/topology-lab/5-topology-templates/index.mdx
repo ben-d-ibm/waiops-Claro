@@ -28,7 +28,59 @@ Note that **Exact** and **Tag-based** templates creates a **single** resource
 group while **Dynamic** and **Token** templates could create **multiple**
 resource groups.
 
-## Token Group Template
+## 5.1: Exact Group Template
+
+An exact template builds a single group of resources centered on a specified
+seed resource. The membership of the resulting resource group includes the seed
+resource and those matching the specified relationship and/or resource type
+criteria. Resource group membership is dynamically maintained for the resulting
+resource group provided the specified seed resource type remains unchanged.
+
+For example, you can use an exact template to create a group of resources only
+for a specific Jenkins build pipeline and any new builds or physical server and
+its connected network switch.
+
+The exact topology group template is useful for when you have a specific
+collection of resources that are unique in your environment that may be of
+particular importance. Perhaps you want to be able to find this group of
+resources quickly and easily.
+
+## 5.2: Tag Group Template
+
+A tag based template builds a single but dynamic resource group containing
+resources that have the specified tag(s). Resource group membership is
+dynamically maintained to reflect changes in the topology for resources that
+gain or lose the specified tags.
+
+For example, you can use a tag based template to create a dynamic group of your
+resources tagged with both 'red' and 'green'. Then, when you add new resources
+with both of those tags, the resource group will be updated to include them.
+
+Note that resources don't have to be connected; they simply need to have the
+common tag in order to be grouped. Tags can be added to resources via the
+topology **tagsRule** as discussed in the previous chapter, or by including the
+tags parameter if creating topology via the File or REST Observers.
+
+## 5.3: Dynamic Group Template
+
+A dynamic group template builds multiple groups of resources that are similar to
+the specified seed resource and relationship and/or resource type criteria.
+Resource group creation and membership is dynamically maintained based on the
+available topology data and how it changes.
+
+For example, you can use a dynamic group template to create dynamic groups of
+resources, one for each of your virtual machines and the Kubernetes services
+they're running. Resource groups are then added, removed and updated as you add
+or remove virtual machines and/or services running on them.
+
+The Dynamic group template is probably the most versatile of all the topology
+group templates. Using an example of a set of resources you want to group, the
+dynamic group template will automatically find other groups of resources that
+follow the same _recipe_ as the example you give. As you expose the resources
+and relationships in the view, the template builder records the steps, and then
+uses this _recipe_ to find other similar groups of resources.
+
+## 5.4: Token Group Template
 
 A token template builds multiple groups of resources using one or more rules.
 Any resource that matches one of the rules will be added to a group whose name
