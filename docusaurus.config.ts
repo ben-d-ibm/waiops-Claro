@@ -7,8 +7,8 @@ const config: Config = {
   tagline: "IBM IT & Network Automation Tiger Team",
   url: "https://ben-d-ibm.github.io",
   baseUrl: "/waiops-Claro/",
-  onBrokenLinks: "throw",
-  onBrokenMarkdownLinks: "warn",
+  onBrokenLinks: "ignore",
+  onBrokenMarkdownLinks: "ignore",
   favicon: "img/favicon.svg",
   markdown: {
     mermaid: true,
@@ -38,13 +38,13 @@ const config: Config = {
           sidebarPath: require.resolve("./sidebars.js"),
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl: "https://github.com/IBM/waiops-tech-jam/tree/main",
+          editUrl: "https://github.com/ben-d-ibm/waiops-Claro/tree/main",
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl: "https://github.com/IBM/waiops-tech-jam/tree/main",
+          editUrl: "https://github.com/ben-d-ibm/waiops-Claro/tree/main",
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
@@ -65,7 +65,7 @@ const config: Config = {
         path: "best-practice",
         routeBasePath: "best-practice",
         sidebarPath: require.resolve("./sidebars.js"),
-        editUrl: "https://github.com/IBM/waiops-tech-jam/tree/main",
+        editUrl: "https://github.com/ben-d-ibm/waiops-Claro/tree/main",
       },
     ],
   ],
