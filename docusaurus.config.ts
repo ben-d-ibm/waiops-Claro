@@ -3,8 +3,8 @@ import type * as Preset from "@docusaurus/preset-classic"
 import {themes} from "prism-react-renderer"
 
 const config: Config = {
-  title: "IT & Network Automation Tiger Team",
-  tagline: "IBM IT & Network Automation Tiger Team",
+  title: "Client Engineering AIOps Workshop for Claro",
+  tagline: "Client Engineering AIOps Workshop for Claro",
   url: "https://ben-d-ibm.github.io",
   baseUrl: "/waiops-Claro/",
   onBrokenLinks: "ignore",
@@ -74,7 +74,7 @@ const config: Config = {
   themeConfig: {
     navbar: {
       style: "dark",
-      title: "IT & Network Automation Tiger Team",
+      title: "Client Engineering AIOps Workshop for Claro",
       logo: {
         alt: "Logo",
         src: "/img/IBM_logo_blue.png",
