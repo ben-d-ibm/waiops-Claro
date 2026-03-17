@@ -6,17 +6,12 @@ sidebar_position: 5
 
 Scope-based grouping is very powerful and provides significant event reduction
 by virtue of grouping alerts, thereby effectively reducing the "noise" presented
-to IT operations personnel.
+to operations personnel.
 
 Scope-based alert grouping is based on a basic premise that alerts occurring at
 "around the same place", and "about the same time" are likely related.
 
-For example, a hardware failure causes the storage service to fail. This creates
-a failure of a database service which impact web services that leverage this
-database. Assuming we have the right observability in place, there will be
-anomalous events coming from the database and from the web service, around the
-same time. In this case, the scope might be a common application or service
-name.
+For example, a failure in an optical transport link between Buenos Aires and Asunción can impact multiple network layers. This may generate alerts from optical transport nodes, core routers, and access edge devices within a short time window. Although these alerts originate from different technologies, they are all related to the same underlying service disruption.
 
 The objective here is to be able to group alerts based on common properties and
 time of occurrence to identify when issues might be related. When related alerts
@@ -31,17 +26,17 @@ become more clear in the next steps.
 Scope-based grouping enable operations teams to provide local knowledge on how
 alerts should be grouped by defining scope-based grouping policies.
 
-We will play the role of an SRE (Site Reliability Engineer) that is responsible
-for an application that is deployed independently in two public cloud regions,
-US-SOUTH and US-EAST. We have observability tools deployed that monitor each
-application stack layer including databases (DB2), application servers (Liberty)
-and web services (APIs) on top. The challenge is that alerts related to each
-stack layer are not correlated despite the fact that belong to the same overall
-application stack.
+We will play the role of a Network Operations Engineer responsible for a 
+telecommunications service deployed across multiple regions, such as Buenos Aires 
+and Asunción. We have observability tools monitoring different layers of the network, 
+including core routers, transport (optical) network, and service endpoints. 
+The challenge is that alerts related to each network layer are not correlated despite 
+belonging to the same end-to-end service.
 
-To facilitate your SRE work, you will create a new scope-based policy that will
-group alerts that have the common resource value alert.resource.application and
-that belong to the two cloud regions US-SOUTH and US-EAST. Also, we want the
+To facilitate your Network Operations Engineer work, you will create a new scope-based 
+policy that will
+group alerts that have the common resource value alert.resource.application and that belong 
+to the two network locations Buenos Aires and Asunción. Also, we want the
 alert grouping to happen within a 15 minute rolling window. In other words,
 alerts separated by more than 15 minutes will not be grouped together.
 
@@ -76,7 +71,7 @@ Now we will create a new scope-based policy:
 
   - Make sure the **Policy** is **Enabled** (green)
   - Under **Policy details**, set the **Policy name** as "Group Alerts coming
-    from 2 Locations by Location-Application"
+    from 2 Locations by Location-Service"
   - Change the **Execution order** slider value to **40**
   - Under Policy triggers, check **Before an alert is created**
   - Under **Condition sets**:
@@ -86,8 +81,8 @@ Now we will create a new scope-based policy:
     - For **Property** select **alert.resource.location**
     - For **Operator** select **contains**
     - For **Matches** select **any of**
-    - For **Value** type (use uppercase in both) US-SOUTH and select
-      `String: US-SOUTH`, type US-EAST and select `String: US-EAST`
+    - For **Value** type (use uppercase in both) Buenos Aires and select
+      `String: Buenos Aires`, type Asuncion and select `String: Asuncion`
   - Under **Create a scope-based grouping**:
 
     - select **resource.location**
@@ -130,14 +125,14 @@ gedit scope_events.json
 ```
 
 ```
-{ "sender":{ "service":"Zabbix Middleware Monitoring", "name":"US-SOUTH CEA SelfMonitoring @AGG_P", "type":"Zabbix" }, "resource":{ "application":"NetCash", "name":"DB2server2", "hostname":"DB2server2.company.com", "type":"host", "ipaddress":"10.1.96.24", "location":"US-SOUTH" }, "type":{ "classification":"System status", "eventType":"problem" }, "severity":3, "summary":"/dev/sda1 is 70% full", "occurrenceTime":"2023-05-05T14:40:38.000Z", "expirySeconds":0 }
-{ "sender":{ "service":"Zabbix Middleware Monitoring", "name":"US-EAST CEA SelfMonitoring @AGG_P", "type":"Zabbix" }, "resource":{ "application":"NetCash", "name":"DB2server2", "hostname":"DB2server2.company.com", "type":"host", "ipaddress":"10.1.96.28", "location":"US-EAST" }, "type":{ "classification":"System status", "eventType":"problem" }, "severity":5, "summary":"/dev/sda1 is 90% full", "occurrenceTime":"2023-05-05T14:45:20.000Z", "expirySeconds":0 }
-{ "sender":{ "service":"Zabbix Middleware Monitoring", "name":"EU-CENTRAL CEA SelfMonitoring @AGG_P", "type":"Zabbix" }, "resource":{ "application":"NetCash", "name":"DB2server2", "hostname":"DB2server2.company.com", "type":"host", "ipaddress":"10.1.96.29", "location":"EU-CENTRAL" }, "type":{ "classification":"System status", "eventType":"problem" }, "severity":6, "summary":"DB2ERR=667 THE CLUSTERING INDEX FOR A PARTITIONED TABLESPACE CANNOT BE EXPANDED", "occurrenceTime":"2023-05-05T14:46:10.000Z", "expirySeconds":0 }
-{ "sender":{ "service":"Zabbix Middleware Monitoring", "name":"US-SOUTH CEA SelfMonitoring @AGG_P", "type":"Zabbix" }, "resource":{ "application":"NetCash", "name":"Liberty Server 1", "hostname":"liberty1.company.com", "type":"host", "ipaddress":"10.1.96.30", "location":"US-SOUTH" }, "type":{ "classification":"System status", "eventType":"problem" }, "severity":4, "summary":"PH31839: LIBERTY 20.0.0.3 IS NOT ABLE TO CONNECT TO DB2 AFTER 3 ATTEMPTS", "occurrenceTime":"2023-05-05T14:47:22.000Z", "expirySeconds":0 }
-{ "sender":{ "service":"Zabbix Middleware Monitoring", "name":"US-EAST CEA SelfMonitoring @AGG_P", "type":"Zabbix" }, "resource":{ "application":"NetCash", "name":"Liberty Server 1", "hostname":"liberty1.company.com", "type":"host", "ipaddress":"10.1.96.33", "location":"US-EAST" }, "type":{ "classification":"System status", "eventType":"problem" }, "severity":5, "summary":"exception=The DB server rejected the connection. DSRA0010E: SQL State = 08004, Error Code = -99,999, id=jdbc/database", "occurrenceTime":"2023-05-05T14:48:55.000Z", "expirySeconds":0 }
-{ "sender":{ "service":"Zabbix Middleware Monitoring", "name":"EU-CENTRAL CEA SelfMonitoring @AGG_P", "type":"Zabbix" }, "resource":{ "application":"NetCash", "name":"Liberty Server 1", "hostname":"liberty1.company.com", "type":"host", "ipaddress":"10.1.96.01", "location":"EU-CENTRAL" }, "type":{ "classification":"System status", "eventType":"problem" }, "severity":5, "summary":"exception=The DB server is unresponsive. DSRA0010E: SQL State = 099, Error Code = -77, id=jdbc/database", "occurrenceTime":"2023-05-05T14:49:55.000Z", "expirySeconds":0 }
-{ "sender":{ "service":"Instana Application Monitoring", "name":"US-SOUTH API Layer SelfMonitoring", "type":"Instana" }, "resource":{ "application":"NetCash", "name":"NetCash Services", "hostname":"netcash-api.company.com", "type":"host", "ipaddress":"10.1.96.66", "location":"US-SOUTH" }, "type":{ "classification":"API availability", "eventType":"problem" }, "severity":5, "summary":"API: cash-transfer web service time out ", "occurrenceTime":"2023-05-05T14:50:13.000Z", "expirySeconds":0 }
-{ "sender":{ "service":"Instana Application Monitoring", "name":"US-EAST API Layer SelfMonitoring", "type":"Instana" }, "resource":{ "application":"NetCash", "name":"NetCash Services", "hostname":"netcash-api.company.com", "type":"host", "ipaddress":"10.1.96.69", "location":"US-EAST" }, "type":{ "classification":"API availability", "eventType":"problem" }, "severity":5, "summary":"API: account-balance web service time out ", "occurrenceTime":"2023-05-05T14:51:18.000Z", "expirySeconds":0 }
+{"sender":{"service":"IBM Netcool Transport Monitoring","name":"AR-PY Transport Assurance @CBA-NC01","type":"Netcool"},"resource":{"application":"Telco Transport AR-PY","name":"CBAPOD01","hostname":"cbapod01.telco-demo-ar-py.local","type":"fiberConnection","ipaddress":"10.20.30.41","location":"Buenos Aires"},"type":{"classification":"Transport link status","eventType":"problem"},"severity":6,"summary":"Optical transport failure detected on CBAPOD01 affecting long-haul route Buenos Aires - Asuncion","occurrenceTime":"2026-03-13T12:00:00.000Z","expirySeconds":0}
+{"sender":{"service":"IBM Netcool Transport Monitoring","name":"AR-PY Transport Assurance @FOR-CT01","type":"Netcool"},"resource":{"application":"Telco Transport AR-PY","name":"FORPOD02","hostname":"forpod02.telco-demo-ar-py.local","type":"fiberConnection","ipaddress":"10.20.30.42","location":"Asuncion"},"type":{"classification":"Transport link status","eventType":"problem"},"severity":5,"summary":"Signal degradation detected on FORPOD02 after upstream transport interruption","occurrenceTime":"2026-03-13T12:01:05.000Z","expirySeconds":0}
+{"sender":{"service":"IBM Netcool Transport Monitoring","name":"AR-PY Optical Core @BUE-RT01","type":"Netcool"},"resource":{"application":"Telco Transport AR-PY","name":"BUEOP01","hostname":"bueop01.telco-demo-ar-py.local","type":"device","ipaddress":"10.20.10.11","location":"Buenos Aires"},"type":{"classification":"Transport node status","eventType":"problem"},"severity":5,"summary":"Loss of transport adjacency from BUEOP01 towards Asuncion optical path","occurrenceTime":"2026-03-13T12:02:10.000Z","expirySeconds":0}
+{"sender":{"service":"IBM Netcool Transport Monitoring","name":"AR-PY Optical Core @ASU-VM01","type":"Netcool"},"resource":{"application":"Telco Transport AR-PY","name":"ASUOP01","hostname":"asuop01.telco-demo-ar-py.local","type":"device","ipaddress":"10.20.10.12","location":"Asuncion"},"type":{"classification":"Transport node status","eventType":"problem"},"severity":5,"summary":"Remote optical node ASUOP01 reporting path interruption towards Buenos Aires","occurrenceTime":"2026-03-13T12:03:15.000Z","expirySeconds":0}
+{"sender":{"service":"IBM Netcool Access Edge Monitoring","name":"AR-PY Edge Router @BUE-RT01","type":"Netcool"},"resource":{"application":"Telco Transport AR-PY","name":"BUEA01[ Port 10/1/1 ]","hostname":"buea01.telco-demo-ar-py.local","type":"port","ipaddress":"10.20.20.21","location":"Buenos Aires"},"type":{"classification":"Port status","eventType":"problem"},"severity":4,"summary":"Service port BUEA01[ Port 10/1/1 ] down for enterprise circuit BUEAB01/ASUAB01/GE10/1/4","occurrenceTime":"2026-03-13T12:04:05.000Z","expirySeconds":0}
+{"sender":{"service":"IBM Netcool Access Edge Monitoring","name":"AR-PY Edge Router @ASU-VM01","type":"Netcool"},"resource":{"application":"Telco Transport AR-PY","name":"ASUA01[ Port 1/1/22 ]","hostname":"asua01.telco-demo-ar-py.local","type":"port","ipaddress":"10.20.20.22","location":"Asuncion"},"type":{"classification":"Port status","eventType":"problem"},"severity":4,"summary":"Service port ASUA01[ Port 1/1/22 ] unavailable for enterprise circuit BUEAB01/ASUAB01/GE10/1/4","occurrenceTime":"2026-03-13T12:05:00.000Z","expirySeconds":0}
+{"sender":{"service":"IBM Netcool Edge Device Monitoring","name":"AR-PY IP Edge @BUE-RT01","type":"Netcool"},"resource":{"application":"Telco Transport AR-PY","name":"BUEA01","hostname":"buea01.telco-demo-ar-py.local","type":"device","ipaddress":"10.20.10.21","location":"Buenos Aires"},"type":{"classification":"Service availability","eventType":"problem"},"severity":3,"summary":"Enterprise transport service impacted on BUEA01 due to upstream optical failure","occurrenceTime":"2026-03-13T12:06:20.000Z","expirySeconds":0}
+{"sender":{"service":"IBM Netcool Edge Device Monitoring","name":"AR-PY IP Edge @ASU-VM01","type":"Netcool"},"resource":{"application":"Telco Transport AR-PY","name":"ASUA01","hostname":"asua01.telco-demo-ar-py.local","type":"device","ipaddress":"10.20.10.22","location":"Asuncion"},"type":{"classification":"Service availability","eventType":"problem"},"severity":3,"summary":"Enterprise transport service degraded on ASUA01 due to remote path interruption","occurrenceTime":"2026-03-13T12:07:10.000Z","expirySeconds":0}
 ```
 
 Now lets submit the events via the webhook script created in the previous
@@ -195,8 +190,8 @@ Lets see the Alerts view again:
 
 - From the burger menu in the top-left navigate to: **Operate → Alerts**
 
-Note that now, the Alerts are grouped by Location and Application. Note also
-that Alerts from the region EU-CENTRAL are not grouped as shown below.
+Note that now, the Alerts are grouped by Location and Service. Note also
+that Alerts from locations outside Buenos Aires and Asuncion are not grouped.
 
 ![](images/alerts-grouped1.png)
 
@@ -240,4 +235,4 @@ the Lab:
 We created a new **scope-based correlation policy** that groups alerts within a
 15 minute rolling window by alert.resource.location and
 alert.resource.application and where the location is one of two cloud regions
-US-SOUTH and US-EAST.
+Buenos Aires and Asuncion.
