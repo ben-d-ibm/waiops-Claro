@@ -40,12 +40,6 @@ const config: Config = {
           // Remove this to remove the "edit this page" links.
           editUrl: "https://github.com/ben-d-ibm/waiops-Claro/tree/main",
         },
-        blog: {
-          showReadingTime: true,
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl: "https://github.com/ben-d-ibm/waiops-Claro/tree/main",
-        },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
         },
@@ -58,16 +52,6 @@ const config: Config = {
   ],
 
   plugins: [
-    [
-      "@docusaurus/plugin-content-docs",
-      {
-        id: "best-practice",
-        path: "best-practice",
-        routeBasePath: "best-practice",
-        sidebarPath: require.resolve("./sidebars.js"),
-        editUrl: "https://github.com/ben-d-ibm/waiops-Claro/tree/main",
-      },
-    ],
   ],
 
   themes: [
@@ -76,11 +60,11 @@ const config: Config = {
       {
         // `hashed` is recommended as long-term-cache of index file is possible.
         hashed: "filename",
-        docsDir: ["labs", "best-practice"],
-        docsRouteBasePath: ["labs", "best-practice"],
+        docsDir: ["labs"],
+        docsRouteBasePath: ["labs"],
         highlightSearchTermsOnTargetPage: true,
         indexDocs: true,
-        indexBlog: true,
+        indexBlog: false,
         indexPages: false,
       },
     ],
@@ -98,18 +82,11 @@ const config: Config = {
       },
       items: [
         {
-          to: "/best-practice/practitioner-basics",
-          label: "Best Practice",
-          position: "left",
-          activeBaseRegex: "best-practice/",
-        },
-        {
           to: "/labs/jam-in-a-box",
           label: "Labs",
           position: "left",
           activeBaseRegex: "labs/",
         },
-        {to: "/blog", label: "Blog", position: "left"},
         // TODO: Automations coming soon
         // {
         //   to: "/automations",
@@ -163,10 +140,6 @@ const config: Config = {
         {
           title: "More",
           items: [
-            {
-              label: "Blog",
-              to: "/blog",
-            },
             {
               label: "GitHub",
               href: "https://github.com/IBM/waiops-tech-jam",
