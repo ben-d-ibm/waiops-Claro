@@ -70,8 +70,7 @@ Now we will create a new scope-based policy:
 - From the **Group alerts based on scope** page:
 
   - Make sure the **Policy** is **Enabled** (green)
-  - Under **Policy details**, set the **Policy name** as "Group Alerts coming
-    from 2 Locations by Location-Service"
+  - Under **Policy details**, set the **Policy name** as "Group Telco Alerts by Location and Service"
   - Change the **Execution order** slider value to **40**
   - Under Policy triggers, check **Before an alert is created**
   - Under **Condition sets**:
@@ -101,7 +100,7 @@ Now we will create a new scope-based policy:
 
 Your new policy should look like the charts below:
 
-![](images/policy-1.png) ![](images/policy-2.png) ![](images/policy-3.png)
+![](images/policy-1.png) ![](images/condition-sets.png) ![](images/policy-3.png)
 
 - Finally, click on **Create Policy** on the top-right.
 
@@ -125,14 +124,14 @@ gedit scope_events.json
 ```
 
 ```
-{"sender":{"service":"IBM Netcool Transport Monitoring","name":"AR-PY Transport Assurance @CBA-NC01","type":"Netcool"},"resource":{"application":"Telco Transport AR-PY","name":"CBAPOD01","hostname":"cbapod01.telco-demo-ar-py.local","type":"fiberConnection","ipaddress":"10.20.30.41","location":"Buenos Aires"},"type":{"classification":"Transport link status","eventType":"problem"},"severity":6,"summary":"Optical transport failure detected on CBAPOD01 affecting long-haul route Buenos Aires - Asuncion","occurrenceTime":"2026-03-13T12:00:00.000Z","expirySeconds":0}
-{"sender":{"service":"IBM Netcool Transport Monitoring","name":"AR-PY Transport Assurance @FOR-CT01","type":"Netcool"},"resource":{"application":"Telco Transport AR-PY","name":"FORPOD02","hostname":"forpod02.telco-demo-ar-py.local","type":"fiberConnection","ipaddress":"10.20.30.42","location":"Asuncion"},"type":{"classification":"Transport link status","eventType":"problem"},"severity":5,"summary":"Signal degradation detected on FORPOD02 after upstream transport interruption","occurrenceTime":"2026-03-13T12:01:05.000Z","expirySeconds":0}
 {"sender":{"service":"IBM Netcool Transport Monitoring","name":"AR-PY Optical Core @BUE-RT01","type":"Netcool"},"resource":{"application":"Telco Transport AR-PY","name":"BUEOP01","hostname":"bueop01.telco-demo-ar-py.local","type":"device","ipaddress":"10.20.10.11","location":"Buenos Aires"},"type":{"classification":"Transport node status","eventType":"problem"},"severity":5,"summary":"Loss of transport adjacency from BUEOP01 towards Asuncion optical path","occurrenceTime":"2026-03-13T12:02:10.000Z","expirySeconds":0}
 {"sender":{"service":"IBM Netcool Transport Monitoring","name":"AR-PY Optical Core @ASU-VM01","type":"Netcool"},"resource":{"application":"Telco Transport AR-PY","name":"ASUOP01","hostname":"asuop01.telco-demo-ar-py.local","type":"device","ipaddress":"10.20.10.12","location":"Asuncion"},"type":{"classification":"Transport node status","eventType":"problem"},"severity":5,"summary":"Remote optical node ASUOP01 reporting path interruption towards Buenos Aires","occurrenceTime":"2026-03-13T12:03:15.000Z","expirySeconds":0}
 {"sender":{"service":"IBM Netcool Access Edge Monitoring","name":"AR-PY Edge Router @BUE-RT01","type":"Netcool"},"resource":{"application":"Telco Transport AR-PY","name":"BUEA01[ Port 10/1/1 ]","hostname":"buea01.telco-demo-ar-py.local","type":"port","ipaddress":"10.20.20.21","location":"Buenos Aires"},"type":{"classification":"Port status","eventType":"problem"},"severity":4,"summary":"Service port BUEA01[ Port 10/1/1 ] down for enterprise circuit BUEAB01/ASUAB01/GE10/1/4","occurrenceTime":"2026-03-13T12:04:05.000Z","expirySeconds":0}
 {"sender":{"service":"IBM Netcool Access Edge Monitoring","name":"AR-PY Edge Router @ASU-VM01","type":"Netcool"},"resource":{"application":"Telco Transport AR-PY","name":"ASUA01[ Port 1/1/22 ]","hostname":"asua01.telco-demo-ar-py.local","type":"port","ipaddress":"10.20.20.22","location":"Asuncion"},"type":{"classification":"Port status","eventType":"problem"},"severity":4,"summary":"Service port ASUA01[ Port 1/1/22 ] unavailable for enterprise circuit BUEAB01/ASUAB01/GE10/1/4","occurrenceTime":"2026-03-13T12:05:00.000Z","expirySeconds":0}
 {"sender":{"service":"IBM Netcool Edge Device Monitoring","name":"AR-PY IP Edge @BUE-RT01","type":"Netcool"},"resource":{"application":"Telco Transport AR-PY","name":"BUEA01","hostname":"buea01.telco-demo-ar-py.local","type":"device","ipaddress":"10.20.10.21","location":"Buenos Aires"},"type":{"classification":"Service availability","eventType":"problem"},"severity":3,"summary":"Enterprise transport service impacted on BUEA01 due to upstream optical failure","occurrenceTime":"2026-03-13T12:06:20.000Z","expirySeconds":0}
 {"sender":{"service":"IBM Netcool Edge Device Monitoring","name":"AR-PY IP Edge @ASU-VM01","type":"Netcool"},"resource":{"application":"Telco Transport AR-PY","name":"ASUA01","hostname":"asua01.telco-demo-ar-py.local","type":"device","ipaddress":"10.20.10.22","location":"Asuncion"},"type":{"classification":"Service availability","eventType":"problem"},"severity":3,"summary":"Enterprise transport service degraded on ASUA01 due to remote path interruption","occurrenceTime":"2026-03-13T12:07:10.000Z","expirySeconds":0}
+{"sender":{"service":"IBM Netcool Transport Monitoring","name":"AR-PY Transport Assurance @CBA-NC01","type":"Netcool"},"resource":{"application":"Telco Transport AR-PY","name":"CBAPOD01","hostname":"cbapod01.telco-demo-ar-py.local","type":"fiberConnection","ipaddress":"10.20.30.41","location":"Cordoba"},"type":{"classification":"Transport link status","eventType":"problem"},"severity":6,"summary":"Optical transport failure detected on CBAPOD01 affecting long-haul route Buenos Aires - Asuncion","occurrenceTime":"2026-03-13T12:00:00.000Z","expirySeconds":0}
+{"sender":{"service":"IBM Netcool Transport Monitoring","name":"AR-PY Transport Assurance @FOR-CT01","type":"Netcool"},"resource":{"application":"Telco Transport AR-PY","name":"FORPOD02","hostname":"forpod02.telco-demo-ar-py.local","type":"fiberConnection","ipaddress":"10.20.30.42","location":"Formosa"},"type":{"classification":"Transport link status","eventType":"problem"},"severity":5,"summary":"Signal degradation detected on FORPOD02 after upstream transport interruption","occurrenceTime":"2026-03-13T12:01:05.000Z","expirySeconds":0}
 ```
 
 Now lets submit the events via the webhook script created in the previous
@@ -200,11 +199,6 @@ as shown below
 
 ![](images/alerts-grouped2.png)
 
-Scroll to the right and check the view correlation icon on the top-right to
-create a new column called **Correlation**. You will see that the grouped Alerts
-have the scope correlation icon in each row.
-
-![](images/alerts-grouped3.png)
 
 ## 5.4 Cleanup
 
